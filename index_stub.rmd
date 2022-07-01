@@ -1,0 +1,57 @@
+---
+title: "Who are the elected representatives?"
+output:
+  html_document: default
+css: styles.css
+---
+
+```{r setup, include=FALSE}
+## this is the code chunk for R setup.
+## You may load libraries and your google key here
+## You can also set various knitr options here
+knitr::opts_chunk$set(echo=FALSE, message=FALSE)
+library(httr)
+library(jsonlite)
+library(dplyr)
+library(tidyr)
+library(knitr)
+
+source("~/Documents/keys.R") 
+source('process-data.R')
+
+```
+
+In the following data, we share information regarding local elected officials by utilizing the [Google Civic Information API](https://developers.google.com/civic-information/). 
+To make this work, first we input an address into our getReps function. 
+The output of this function is a data table which contains the names of relevant local government leaders, their political party, office phone number, URL, photos, and office email.
+
+
+The addresses we will be looking at are:
+```{r}
+address1 <- "7009 Sunset Blvd, Los Angeles, CA 90028"
+                           
+address2 <- "10107 W. 75th Street Overland Park, KS 66204"
+                           
+```
+**`r address1`** and **`r address2`** 
+
+# Elected officials for the first address
+
+The **In-N-Out** restaurant in **Los Angeles, California** has these constituents in their local and national government:  
+
+```{r}
+tbl <- getReps(address1)
+kable(tbl)
+
+```
+
+# Elected officials for the second address
+
+The next location is a **Taco Bell** in the middle of **Kansas**. 
+This location has these constituents in their local and national government: 
+
+```{r}
+tbl2 <- getReps(address2)
+kable(tbl2)
+```
+
